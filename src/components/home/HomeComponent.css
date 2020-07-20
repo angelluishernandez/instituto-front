@@ -1,0 +1,37 @@
+#home-photo {
+}
+
+.default-container {
+	padding: 30px;
+	border: 1px solid var(--mainGreen);
+	border-radius: 5px;
+	max-height: 40vh;
+	overflow: scroll;
+}
+
+.slideshow {
+	max-width: 100%;
+	max-height: 60vh;
+}
+
+.slideshow img {
+	max-height: 60vh;
+	object-fit: contain;
+	filter: grayscale(100%);
+}
+
+.home-pic-container {
+	height: 60vh;
+	background-image: url("/Proceso_adminision_curso_2020-21.jpg");
+	background-size: cover;
+	-webkit-filter: grayscale(100%);
+	z-index: -1;
+	opacity: 0.5; /*make it as your requirement*/
+	color: white;
+}
+
+#noticias {
+}
+
+#actividades {
+}

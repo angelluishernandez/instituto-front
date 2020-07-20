@@ -1,19 +1,17 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import institutoService from "../../services/institutoService";
-import NoticiaItem from "./NoticiaItem";
 import { Link } from "react-router-dom";
+import NewsCard from "../UI/Cards/NewsCard";
+import newsService from "../../services/newsService";
 
-const NewsComponent = () => {
-	const [noticiasState, setNoticiasState] = useState([]);
+const NewsComponent = ({ isAdmin }) => {
+	const [news, setNews] = useState([]);
 	const [loading, setLoading] = useState(true);
 
-	console.log(noticiasState);
-
 	useEffect(() => {
-		institutoService.listNoticias().then((res) => {
-			console.log(res);
-			setNoticiasState(res.data);
+		newsService.getNews().then((res) => {
+			setNews(res.data);
 		});
 		// eslint-disable-next-line
 		setLoading(false);
@@ -21,18 +19,22 @@ const NewsComponent = () => {
 
 	return (
 		<div className="container">
-			<div className="row mx-auto">
-				<button className="btn btn-success">
-					<Link to="/noticias/crear-noticia">Crear noticia</Link>
-				</button>
-			</div>
+			{isAdmin && (
+				<div className="row mx-auto">
+					<button className="btn btn-success">
+						<Link to="/noticias/crear-noticia">Crear noticia</Link>
+					</button>
+				</div>
+			)}
 
 			{loading ? (
 				<h1>Loading...</h1>
 			) : (
 				<div className="row">
-					{noticiasState.map((noticia, index) => {
-						return <NoticiaItem key={index} noticia={noticia} />;
+					{news.map((newsItem, index) => {
+						return (
+							<NewsCard key={index} newsItem={newsItem} isAdmin={isAdmin} />
+						);
 					})}
 				</div>
 			)}

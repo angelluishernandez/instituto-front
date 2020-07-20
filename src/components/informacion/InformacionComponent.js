@@ -4,7 +4,7 @@ const InformacionComponent = () => {
 	return (
 		<div>
 			{/* Enlaces 
-            Proyecto educativo // Misión y valores // Plan de convivencia // Reglamento de régimen interno
+            Proyecto educativo (pdf link) // Misión y valores(text based component) // Plan de convivencia(pdf link) // Reglamento de régimen interno(pdf link)
         Oferta formativa
           ESO // Calendario Escolar  // Horarios
           FP // Calendario Escolar  // Horarios

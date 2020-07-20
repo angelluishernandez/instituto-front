@@ -6,7 +6,7 @@ const http = axios.create({
 });
 
 const listCursos = () => http.get("/cursos");
-const listNoticias = () => http.get("/noticias");
+
 const doLogin = ({ email, password }) =>
 	http.post("/login", { email, password });
 
@@ -17,7 +17,6 @@ const getCurso = (cursoId) => http.get(`/cursos/${cursoId}`);
 
 export default {
 	listCursos,
-	listNoticias,
 	createNoticia,
 	createUser,
 	getCurso,

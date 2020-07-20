@@ -18,6 +18,15 @@ const CreateNews = () => {
 			)}
 			<form onSubmit={(e) => handleSubmit(e)}>
 				<div className="form-group">
+					<label htmlFor="titulo">Imagen de la noticia</label>
+					<input
+						type="text"
+						className="form-control"
+						placeholder="Introduce una url de una imagen"
+						onChange={(e) => setNoticia({ ...noticia, imgUrl: e.target.value })}
+					/>
+				</div>
+				<div className="form-group">
 					<label htmlFor="titulo">Título de la noticia</label>
 					<input
 						type="text"

@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./HomeComponent.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import CarouselComponent from "../UI/Carousel/CarouselComponent";
-import NewsContainer from "./NewsContainer";
+import NewsContainer from "../news/NewsContainer";
 import ImgGalleryComponent from "../UI/ImgGallery/ImgGalleryComponent";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import homeService from "../../services/homeService";
+import NewsComponent from "../news/NewsComponent";
 
 const HomeComponent = ({ currentUser, isLoggedIn }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
@@ -17,7 +18,7 @@ const HomeComponent = ({ currentUser, isLoggedIn }) => {
 	// Get user and check if is isAdmin
 
 	useEffect(() => {
-		if (currentUser.tipo === "admin") {
+		if (currentUser && currentUser.tipo === "admin") {
 			setIsAdmin(true);
 		}
 	}, [isAdmin]);
@@ -92,7 +93,7 @@ const HomeComponent = ({ currentUser, isLoggedIn }) => {
 						<h3>Últimas noticias </h3>
 						<div className="  d-flex justify-content-between ">
 							{" "}
-							<NewsContainer />
+							<NewsComponent isAdmin={isAdmin} />
 						</div>
 						<h3>Consulta más noticias</h3>
 

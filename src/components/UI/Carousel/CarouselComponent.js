@@ -31,7 +31,6 @@ const CarouselComponent = ({ carouselItems }) => {
 									<div class="carousel-content">
 										<h3>{item.title}</h3>
 										<p>{item.text}</p>
-										<Link to={item.url}>Ver más</Link>
 									</div>
 								</div>
 							</div>{" "}

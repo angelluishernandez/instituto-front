@@ -6,15 +6,35 @@ import NewsContainer from "./NewsContainer";
 import ImgGalleryComponent from "../UI/ImgGallery/ImgGalleryComponent";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import homeService from "../../services/homeService";
 
 const HomeComponent = ({ currentUser, isLoggedIn }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
+	const [loading, setLoading] = useState(true);
+	const [galleryItems, setGalleryItems] = useState([]);
+	const [carouselItems, setCarouselItems] = useState([]);
+
+	// Get user and check if is isAdmin
 
 	useEffect(() => {
 		if (currentUser.tipo === "admin") {
 			setIsAdmin(true);
 		}
 	}, [isAdmin]);
+
+	useEffect(() => {
+		homeService
+			.getGalleryItems()
+			.then((response) => {
+				setGalleryItems(response.data);
+			})
+			.then(() =>
+				homeService
+					.getCarouselItems()
+					.then((response) => setCarouselItems(response.data))
+			)
+			.then(() => setLoading(false));
+	}, [loading]);
 
 	return (
 		<>
@@ -38,61 +58,68 @@ const HomeComponent = ({ currentUser, isLoggedIn }) => {
 
 			{/* ************************************** */}
 
-			<div className="slideshow">
-				<CarouselComponent />
-			</div>
-			<div className="container text-center">
-				<div className="row ">
-					<div className="text-left ">
-						<h1>
-							Centro de Educación Secundaria y Formación Profesional 1º de Mayo
-						</h1>
-						<p>
-							En el CES y FP 1º de Mayo se imparten cursos de Educación
-							Secundaria Obligatoria y Formación Profesional. Nuestro objetivo
-							es formar mujeres y hombres libres, responsables y capaces, que
-							defiendan el cuidado de la naturaleza y busquen el bienestar
-							cultural, material y la justicia social.
-						</p>
+			{loading ? (
+				<h1>Loading...</h1>
+			) : (
+				<>
+					<div className="slideshow">
+						<CarouselComponent carouselItems={carouselItems} />
 					</div>
-				</div>
-				<hr />
+					<div className="container text-center">
+						<div className="row ">
+							<div className="text-left ">
+								<h1>
+									Centro de Educación Secundaria y Formación Profesional 1º de
+									Mayo
+								</h1>
+								<p>
+									En el CES y FP 1º de Mayo se imparten cursos de Educación
+									Secundaria Obligatoria y Formación Profesional. Nuestro
+									objetivo es formar mujeres y hombres libres, responsables y
+									capaces, que defiendan el cuidado de la naturaleza y busquen
+									el bienestar cultural, material y la justicia social.
+								</p>
+							</div>
+						</div>
+						<hr />
 
-				{/* ************************************** */}
+						{/* ************************************** */}
 
-				{/* Noticias */}
+						{/* Noticias */}
 
-				{/* ************************************** */}
+						{/* ************************************** */}
 
-				<h3>Últimas noticias </h3>
-				<div className="  d-flex justify-content-between ">
-					{" "}
-					<NewsContainer />
-				</div>
-				<h3>Consulta más noticias</h3>
+						<h3>Últimas noticias </h3>
+						<div className="  d-flex justify-content-between ">
+							{" "}
+							<NewsContainer />
+						</div>
+						<h3>Consulta más noticias</h3>
 
-				<div className="row">
-					{/* <div className="col-6 col-sm-6">
+						<div className="row">
+							{/* <div className="col-6 col-sm-6">
 					{content.map((contentItem, index) => {
 						return <HomeContent key={index} {...contentItem} />;
 					})} */}
-					{/* </div> */}
-				</div>
-				<hr />
+							{/* </div> */}
+						</div>
+						<hr />
 
-				{/* ************************************** */}
+						{/* ************************************** */}
 
-				{/* Galerías */}
+						{/* Galerías */}
 
-				{/* ************************************** */}
+						{/* ************************************** */}
 
-				{/* En este componente se tienen que cargar las imágenes que luego se pasarán como props */}
+						{/* En este componente se tienen que cargar las imágenes que luego se pasarán como props */}
 
-				<div>
-					<h3>Últimas actividades </h3>
-					<ImgGalleryComponent />
-				</div>
-			</div>
+						<div>
+							<h3>Últimas actividades </h3>
+							<ImgGalleryComponent galleryItems={galleryItems} />
+						</div>
+					</div>
+				</>
+			)}
 		</>
 	);
 };

@@ -5,13 +5,13 @@ const ItemList = ({ items, type }) => {
 	return (
 		<div className="col-12">
 			<h3>Edita {type === "gallery" ? "la galería" : "el carrusel"}</h3>
-			This is the item list
+			Estas son las fotos que están en la galeria
 			<div className="container">
 				{items.map((item, index) => (
 					<Item
 						imgUrl={item.imgUrl}
 						description={item.description}
-						id={item.id}
+						id={item._id}
 						key={index}
 					/>
 				))}

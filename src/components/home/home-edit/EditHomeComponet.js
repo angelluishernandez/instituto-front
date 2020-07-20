@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import homeService from "../../../services/homeService";
 import AddItem from "./AddItem";
@@ -15,6 +15,19 @@ const EditHomeComponent = () => {
 	const [carouselItemSubmitted, setCarruselItemSubmitted] = useState(false);
 	const [galleryItemSubmitted, setGalleryItemSubmitted] = useState(false);
 	const [type, setType] = useState("gallery");
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		homeService.getGalleryItems().then((response) => {
+			setGallery(response.data);
+		});
+		homeService
+			.getCarouselItems()
+			.then((response) => {
+				setCarousel(response.data);
+			})
+			.then(() => setLoading(false));
+	}, [loading]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -36,38 +49,44 @@ const EditHomeComponent = () => {
 
 	return (
 		<div className="container">
-			<div className="row">
-				<div className="col-10 mx-auto">
-					<button
-						onClick={() =>
-							type === "gallery" ? setType("carousel") : setType("gallery")
-						}
-					>
-						{type === "gallery"
-							? "Añade una foto al galería"
-							: "Añade una foto a la carrusel"}
-					</button>
+			{loading ? (
+				<h1>Loading...</h1>
+			) : (
+				<>
+					<div className="row">
+						<div className="col-10 mx-auto">
+							<button
+								onClick={() =>
+									type === "gallery" ? setType("carousel") : setType("gallery")
+								}
+							>
+								{type === "gallery"
+									? "Añade una foto al galería"
+									: "Añade una foto a la carrusel"}
+							</button>
 
-					<AddItem
-						handleSubmit={handleSubmit}
-						setCarruselItem={setCarruselItem}
-						galleryItem={galleryItem}
-						setGalleryItem={setGalleryItem}
-						carouselItem={carouselItem}
-						type={type}
-					/>
-				</div>
-			</div>
-			<hr className="my-5" />
+							<AddItem
+								handleSubmit={handleSubmit}
+								setCarruselItem={setCarruselItem}
+								galleryItem={galleryItem}
+								setGalleryItem={setGalleryItem}
+								carouselItem={carouselItem}
+								type={type}
+							/>
+						</div>
+					</div>
+					<hr className="my-5" />
 
-			<div className="row">
-				<div className="col-10 mx-auto">
-					<ItemList
-						items={type === "gallery" ? galleryItems : carouselItems}
-						type={type}
-					/>
-				</div>
-			</div>
+					<div className="row">
+						<div className="col-10 mx-auto">
+							<ItemList
+								items={type === "gallery" ? galleryItems : carouselItems}
+								type={type}
+							/>
+						</div>
+					</div>
+				</>
+			)}
 		</div>
 	);
 };

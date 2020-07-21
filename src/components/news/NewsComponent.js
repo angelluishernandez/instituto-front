@@ -4,8 +4,9 @@ import institutoService from "../../services/institutoService";
 import { Link } from "react-router-dom";
 import NewsCard from "../UI/Cards/NewsCard";
 import newsService from "../../services/newsService";
+import CreateNews from "./CreateNews";
 
-const NewsComponent = ({ isAdmin }) => {
+const NewsComponent = ({ isAdmin, location }) => {
 	const [news, setNews] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -19,6 +20,8 @@ const NewsComponent = ({ isAdmin }) => {
 
 	return (
 		<div className="container">
+			{location.pathname === "/noticias" ? <CreateNews /> : null}
+
 			{isAdmin && (
 				<div className="row mx-auto">
 					<button className="btn btn-success">

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import homeService from "../../services/homeService";
 import NewsComponent from "../news/NewsComponent";
 
-const HomeComponent = ({ currentUser, isLoggedIn }) => {
+const HomeComponent = ({ currentUser, isLoggedIn, location }) => {
 	const [isAdmin, setIsAdmin] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [galleryItems, setGalleryItems] = useState([]);
@@ -93,7 +93,7 @@ const HomeComponent = ({ currentUser, isLoggedIn }) => {
 						<h3>Últimas noticias </h3>
 						<div className="  d-flex justify-content-between ">
 							{" "}
-							<NewsComponent isAdmin={isAdmin} />
+							<NewsComponent isAdmin={isAdmin} location={location} />
 						</div>
 						<h3>Consulta más noticias</h3>
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import institutoService from "../../services/institutoService";
-import Chip from "../UI/Chips/Chip";
+import institutoService from "../../../services/institutoService";
+import Chip from "../../UI/Chips/Chip";
 
 const EditarFormacion = () => {
 	const [cursoInfo, setCursoInfo] = useState({

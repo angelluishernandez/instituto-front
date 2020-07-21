@@ -13,6 +13,7 @@ const CreateNews = () => {
 
 	return (
 		<div className="container">
+			<h3>Añade una noticia</h3>
 			{submitted && (
 				<div className="alert-success">La noticia se ha creado</div>
 			)}
